@@ -2,7 +2,7 @@
 <html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>2026 교육감기 수영대회 | 인제 선수단 일정</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#eff5f9;color:#15334e;font:16px/1.55 system-ui,sans-serif}main,header div{max-width:1000px;margin:auto;padding:24px}header{background:#143855;color:white}h1{margin:.25rem 0;font-size:clamp(1.55rem,4vw,2.35rem)}p{margin:.35rem 0}header p{color:#d8edf7}.note{background:#fff0cc;padding:14px 18px;border-radius:12px;color:#563800}.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin:18px 0}label{display:grid;gap:4px;font-weight:650}input,select{width:100%;padding:11px;border:1px solid #83a1b5;border-radius:8px;background:white;color:#15334e;font:inherit}button{font:inherit;padding:8px 13px;background:white;border:1px solid #7799ad;color:#15334e;border-radius:8px;cursor:pointer}button[aria-pressed=true]{background:#00647c;color:white;border-color:#00647c}nav{display:flex;gap:8px;flex-wrap:wrap}h2{margin-bottom:8px}h3{font-size:1rem;margin:16px 0 6px;color:#315c75}.list{list-style:none;padding:0;margin:0;border:1px solid #d3e1ea;border-radius:12px;overflow:hidden;background:white}.list li{display:grid;grid-template-columns:1.35fr 1.65fr 1fr;gap:8px;padding:9px 13px;border-bottom:1px solid #e0e9ef}.list li:last-child{border:0}.meta{color:#3f6074}.team{font-size:.82em;color:#755100}footer{margin:24px 0;font-size:.9em;color:#3f6074}@media(max-width:620px){main,header div{padding:16px}.filters{grid-template-columns:1fr 1fr}.filters label:first-child{grid-column:1/-1}.list li{grid-template-columns:1fr 1fr}.list li .meta{grid-column:1/-1;font-size:.85em}}@media print{header,p.note{background:white;color:black}header p{color:black}.filters,nav{display:none}h2,h3{break-after:avoid}li{break-inside:avoid}}
+*{box-sizing:border-box}body{margin:0;background:#eff5f9;color:#15334e;font:16px/1.55 system-ui,sans-serif}main,header div{max-width:1000px;margin:auto;padding:24px}header{background:#143855;color:white}h1{margin:.25rem 0;font-size:clamp(1.55rem,4vw,2.35rem)}p{margin:.35rem 0}header p{color:#d8edf7}.note{background:#fff0cc;padding:14px 18px;border-radius:12px;color:#563800}.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin:18px 0}label{display:grid;gap:4px;font-weight:650}input,select{width:100%;padding:11px;border:1px solid #83a1b5;border-radius:8px;background:white;color:#15334e;font:inherit}button{font:inherit;padding:8px 13px;background:white;border:1px solid #7799ad;color:#15334e;border-radius:8px;cursor:pointer}button[aria-pressed=true]{background:#00647c;color:white;border-color:#00647c}nav{display:flex;gap:8px;flex-wrap:wrap}h2{margin-bottom:8px}h3{font-size:1rem;margin:16px 0 6px;color:#315c75}.list{list-style:none;padding:0;margin:0;border:1px solid #d3e1ea;border-radius:12px;overflow:hidden;background:white}.list .athlete-race{display:grid;grid-template-columns:1.35fr 1.65fr 1fr;gap:8px;padding:9px 13px;width:100%;border:0;border-radius:0;background:white;color:inherit;text-align:left;font:inherit;cursor:pointer}.list .athlete-race:hover,.list .athlete-race:focus-visible{background:#e5f4f7}.list li{border-bottom:1px solid #e0e9ef}.list li:last-child{border:0}.meta{color:#3f6074}.team{font-size:.82em;color:#755100}footer{margin:24px 0;font-size:.9em;color:#3f6074}@media(max-width:620px){main,header div{padding:16px}.filters{grid-template-columns:1fr 1fr}.filters label:first-child{grid-column:1/-1}.list .athlete-race{grid-template-columns:1fr 1fr}.list li .meta{grid-column:1/-1;font-size:.85em}}@media print{header,p.note{background:white;color:black}header p{color:black}.filters,nav{display:none}h2,h3{break-after:avoid}li{break-inside:avoid}}
 </style>
 <header><div><p>인제교육지원청 선수단 · 관내 확인용</p><h1>2026 교육감기 학년별 수영대회</h1><p>11. 26.(목)–11. 28.(토) · 춘천 국민체육센터 수영장</p></div></header>
 <main>
@@ -37,7 +37,7 @@ function render(){
    for(const row of daily.filter(row=>row.time===time)){
     const item=node('li'), discipline=node('strong',row.event);
     if(row.relay)discipline.append(node('span',' · 단체','team'));
-    item.append(discipline,node('span',`${row.name} (${row.grade}학년) · ${row.school}`),node('span',row.relay ? row.number+'번 · 남초등부 2부 · 결승' : row.number+'번 · '+row.heat+'조 · '+row.lane+'레인','meta'));list.append(item);
+    const raceLink=node('button',null,'athlete-race');raceLink.type='button';raceLink.setAttribute('aria-haspopup','dialog');raceLink.addEventListener('click',()=>openAthleteRace(row));raceLink.append(discipline,node('span',`${row.name} (${row.grade}학년) · ${row.school}`),node('span',row.relay ? row.number+'번 · 남초등부 2부 · 결승' : row.number+'번 · '+row.heat+'조 · '+row.lane+'레인','meta'));item.append(raceLink);list.append(item);
    }
    section.append(list);
   }
@@ -60,7 +60,7 @@ render();
 #race-order select{margin-top:4px;max-width:100%}
 #race-order ol{list-style:none;padding:0}
 #race-order li{display:flex;gap:10px;padding:8px;border-bottom:1px solid #e0e9ef}
-#race-order li details{width:100%;min-width:0} #race-order summary{cursor:pointer;font-weight:650} #race-order table{border-collapse:collapse;width:100%;margin:8px 0;font-size:.92em} #race-order th,#race-order td{padding:5px;text-align:left;border-bottom:1px solid #e0e9ef;overflow-wrap:anywhere} #race-order th{background:#eff5f9}
+#race-order li details{width:100%;min-width:0} #race-order summary{cursor:pointer;font-weight:650} #race-order table{border-collapse:collapse;width:100%;margin:8px 0;font-size:.92em} #race-order th,#race-order td{padding:5px;text-align:left;border-bottom:1px solid #e0e9ef;overflow-wrap:anywhere} #race-order th{background:#eff5f9} #race-order tr.athlete-lane{background:#ccecf1;font-weight:700}
 #race-order li[aria-current]{background:#fff1d9;border-left:4px solid #96420b}
 </style>
 <dialog id="race-order" aria-labelledby="race-title">
@@ -116,7 +116,7 @@ function renderRaceOrder() {
     const body = table.createTBody();
     for (let lane = 1; lane <= 8; lane++) {
      const values = laneAssignments[number][lane] || [];
-     const row = body.insertRow();
+     const row = body.insertRow(); row.dataset.lane = lane;
      for (const value of [lane, ...[0, 1, 2].map(index => values[index] ?? '—')]) {
       row.insertCell().textContent = value;
      }
@@ -132,6 +132,24 @@ function renderRaceOrder() {
  highlightRace();
 }
 
+function openAthleteRace(row) {
+ raceDate.value = row.day;
+ renderRaceOrder();
+ const item = document.getElementById('race-' + row.number);
+ if (!item) return;
+ raceCurrent.value = row.number;
+ highlightRace();
+ const details = item.querySelector('details');
+ details.addEventListener('toggle', () => {
+  const lane = row.relay ? null : details.querySelector('[data-lane="' + row.lane + '"]');
+  if (lane) lane.classList.add('athlete-lane');
+ }, {once:true});
+ raceDialog.showModal();
+ details.open = true;
+ details.querySelector('summary').focus({preventScroll:true});
+ item.scrollIntoView({block:'start'});
+}
+
 raceButton.addEventListener('click', () => {
  raceDate.value = day || raceDate.value;
  renderRaceOrder();
@@ -141,4 +159,5 @@ raceDate.addEventListener('change', renderRaceOrder);
 raceCurrent.addEventListener('change', highlightRace);
 raceJump.addEventListener('click', () => document.getElementById('race-' + raceCurrent.value)?.scrollIntoView({block:'center'}));
 </script></html>
+
 
