@@ -37,7 +37,7 @@ function render(){
    for(const row of daily.filter(row=>row.time===time)){
     const item=node('li'), discipline=node('strong',row.event);
     if(row.relay)discipline.append(node('span',' · 단체','team'));
-    item.append(discipline,node('span',row.name+' · '+row.school),node('span',row.relay ? row.number+'번 · 남초등부 2부 · 결승' : row.number+'번 · '+row.heat+'조 · '+row.lane+'레인','meta'));list.append(item);
+    item.append(discipline,node('span',`${row.name} (${row.grade}학년) · ${row.school}`),node('span',row.relay ? row.number+'번 · 남초등부 2부 · 결승' : row.number+'번 · '+row.heat+'조 · '+row.lane+'레인','meta'));list.append(item);
    }
    section.append(list);
   }
